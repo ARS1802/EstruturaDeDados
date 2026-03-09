@@ -51,7 +51,6 @@ public class Lista {
     }
 
 
-
     public void imprimir()  throws Exception{
         if(!isEmpty()){
             for(Object elemento : this.elemento){
@@ -75,3 +74,4 @@ public class Lista {
 //    }
 
 }
+

@@ -6,9 +6,10 @@ public class Main {
         ListaEstatica lista = new ListaEstatica(new Integer[]{1,2,3,4,5,6,7,8,9,10});
         lista.add(11);
         lista.add(22);
-        lista.remove(13);
-        lista.imprimir();
-        System.out.printf("\n\n\tlength: %d", lista.length());
+        //lista.imprimir();
+
+        ListaDinamica ld = new ListaDinamica(1,2,3,4);
+        System.out.println(ld);
 
     }
 }

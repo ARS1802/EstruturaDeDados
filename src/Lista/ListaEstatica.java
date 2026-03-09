@@ -12,6 +12,7 @@ public class ListaEstatica extends Lista {
     public ListaEstatica(Object[] arr){
         super(arr);
     }
+
     private boolean isValidIndex(int index) throws Exception{
         if(index<0 || index>i){
             throw new Exception(String.format("Indíce %d inválido!",index));
@@ -123,3 +124,4 @@ public class ListaEstatica extends Lista {
         }
     }
 }
+
