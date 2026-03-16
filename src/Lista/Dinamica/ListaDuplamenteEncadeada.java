@@ -39,12 +39,14 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
 
     @Override
     public void clear() throws Exception {
-
+        inicio = null;
+        fim = null;
+        size = 0;
     }
 
     @Override
     public boolean isEmpty() throws Exception {
-        return inicio == null;
+        return inicio == null && size == 0;
     }
 
     @Override
