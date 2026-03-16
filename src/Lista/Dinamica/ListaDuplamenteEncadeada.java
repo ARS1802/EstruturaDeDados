@@ -21,12 +21,19 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
 
     @Override
     public void remove(Object elemento) throws Exception {
-        No aux = inicio;
-        while(aux.getProximo().getProximo() != null){
-            aux = aux.getProximo();
-            if(aux.getProximo().equals(elemento)){
-
+        No aux = fim;
+        No anterior, proximo;
+        while(aux.getAnterior() != null){
+            anterior = aux.getAnterior();
+            proximo = aux.getProximo();
+            if(aux.getValor().equals(elemento)){
+                anterior.setProximo(proximo);
+                proximo.setAnterior(anterior);
+                aux.setAnterior(null);
+                aux.setProximo(null);
+                size--;
             }
+            aux = aux.getAnterior();
         }
     }
 
