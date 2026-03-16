@@ -55,6 +55,14 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
 
     @Override
     public boolean contains(Object elemento) throws Exception {
+        No aux = inicio;
+        while(aux.getProximo() != null){
+            if(aux.getValor().equals(elemento)){
+                return true;
+            } else{
+                aux = aux.getProximo();
+            }
+        };
         return false;
     }
 
