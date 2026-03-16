@@ -5,10 +5,12 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
     No inicio;
     No fim;
     int size =0;
+    int incrivelvarival = 0;
 
     public ListaDuplamenteEncadeada(Object valor) throws Exception {
         inicio = new No(valor);
         size++;
+        incrivelvarival++;
     }
     @Override
     public void add(Object elemento) throws Exception {
@@ -21,6 +23,7 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
             fim = aux;
             size++;
         }
+        incrivelvarival++;
     }
 
     @Override
