@@ -6,6 +6,10 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
     No fim;
     int size =0;
 
+    public ListaDuplamenteEncadeada(Object valor) throws Exception {
+        inicio = new No(valor);
+        size++;
+    }
     @Override
     public void add(Object elemento) throws Exception {
         if(isEmpty()){
@@ -56,10 +60,7 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
 
     @Override
     public int size() throws Exception {
-        return 0;
+        return size;
     }
 
-    public ListaDuplamenteEncadeada(Object valor){
-
-    }
 }
