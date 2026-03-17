@@ -28,19 +28,23 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
 
     @Override
     public void remove(Object elemento) throws Exception {
-        No aux = fim;
-        No anterior, proximo;
-        while(aux.getAnterior() != null){
-            anterior = aux.getAnterior();
-            proximo = aux.getProximo();
-            if(aux.getValor().equals(elemento)){
-                anterior.setProximo(proximo);
-                proximo.setAnterior(anterior);
-                aux.setAnterior(null);
-                aux.setProximo(null);
-                size--;
+        if(contains(elemento)){
+            No aux = fim;
+            No anterior, proximo;
+            while (aux.getAnterior() != null) {
+                anterior = aux.getAnterior();
+                proximo = aux.getProximo();
+                if (aux.getValor().equals(elemento)) {
+                    anterior.setProximo(proximo);
+                    proximo.setAnterior(anterior);
+                    aux.setAnterior(null);
+                    aux.setProximo(null);
+                    size--;
+                }
+                aux = aux.getAnterior();
             }
-            aux = aux.getAnterior();
+        } else{
+            throw new Exception("Lista não contém dado elemento\n");
         }
     }
 
