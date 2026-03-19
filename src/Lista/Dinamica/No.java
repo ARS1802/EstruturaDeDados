@@ -3,10 +3,10 @@ package Lista.Dinamica;
 public class No {
     private No proximo;
     private No anterior;
-    private Object valor;
+    private Object elemento;
 
-    No(Object valor){
-        this.valor = valor;
+    No(Object elemento){
+        this.elemento = elemento;
     }
 
     public No getProximo() {
@@ -25,11 +25,11 @@ public class No {
         this.anterior = anterior;
     }
 
-    public Object getValor() {
-        return valor;
+    public Object getElemento() {
+        return elemento;
     }
 
-    public void setValor(Object valor) {
-        this.valor = valor;
+    public void setElemento(Object elemento) {
+        this.elemento = elemento;
     }
 }

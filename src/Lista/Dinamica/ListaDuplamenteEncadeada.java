@@ -1,6 +1,7 @@
 package Lista.Dinamica;
 import Lista.ListaInterface;
 
+
 public class ListaDuplamenteEncadeada implements ListaInterface {
     No inicio;
     No fim;
@@ -10,6 +11,20 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
         inicio = new No(valor);
         size++;
     }
+
+    public ListaDuplamenteEncadeada(Object... valores){
+        inicio = new No(valores[0]);
+        size = valores.length;
+
+        No aux = inicio;
+        for(int i=1;i<valores.length;i++){
+            No novo = new No(valores[i]);
+            aux.setProximo(novo);
+            novo.setAnterior(aux);
+            aux = novo;
+        }
+        fim = aux;
+    }
     @Override
     public void add(Object elemento) throws Exception {
         if(isEmpty()){
@@ -18,6 +33,7 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
         } else{
             No aux = new No(elemento);
             fim.setProximo(aux);
+            aux.setAnterior(fim);
             fim = aux;
             size++;
         }
@@ -25,19 +41,29 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
 
     @Override
     public void remove(Object elemento) throws Exception {
-        No aux = fim;
-        No anterior, proximo;
-        while(aux.getAnterior() != null){
-            anterior = aux.getAnterior();
-            proximo = aux.getProximo();
-            if(aux.getValor().equals(elemento)){
-                anterior.setProximo(proximo);
-                proximo.setAnterior(anterior);
-                aux.setAnterior(null);
-                aux.setProximo(null);
-                size--;
+        if(contains(elemento)){
+            No atual = inicio;
+            while(atual != null){
+                No anterior = atual.getAnterior();
+                No proximo = atual.getProximo();
+
+                if(atual.getElemento().equals(elemento)){
+                    if(atual.equals(inicio)){
+                        proximo.setAnterior(null);
+                        inicio = proximo;
+                    } else if(atual.equals(fim)){
+                        anterior.setProximo(null);
+                        fim = anterior;
+
+                    } else{
+                        proximo.setAnterior(anterior);
+                        anterior.setProximo(proximo);
+                    }
+                    break;
+                }
+
+                atual = proximo;
             }
-            aux = aux.getAnterior();
         }
     }
 
@@ -56,8 +82,8 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
     @Override
     public boolean contains(Object elemento) throws Exception {
         No aux = inicio;
-        while(aux.getProximo() != null){
-            if(aux.getValor().equals(elemento)){
+        while(aux != null){
+            if(aux.getElemento().equals(elemento)){
                 return true;
             } else{
                 aux = aux.getProximo();
@@ -71,4 +97,16 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
         return size;
     }
 
+    @Override
+    public String toString(){
+        StringBuilder s = new StringBuilder();
+        No aux = inicio;
+        while(aux != null){
+            s.append(aux.getElemento());
+            s.append(" ");
+            aux = aux.getProximo();
+        }
+        s.append("\n");
+        return s.toString();
+    }
 }
