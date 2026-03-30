@@ -5,7 +5,7 @@ import Lista.ListaInterface;
 public class ListaDuplamenteEncadeada implements ListaInterface {
     No inicio;
     No fim;
-    int size =0;
+    int size = 0;
 
     public ListaDuplamenteEncadeada(Object valor) throws Exception {
         inicio = new No(valor);
@@ -54,11 +54,11 @@ public class ListaDuplamenteEncadeada implements ListaInterface {
                     } else if(atual.equals(fim)){
                         anterior.setProximo(null);
                         fim = anterior;
-
                     } else{
                         proximo.setAnterior(anterior);
                         anterior.setProximo(proximo);
                     }
+                    size--;
                     break;
                 }
 

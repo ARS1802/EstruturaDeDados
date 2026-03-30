@@ -11,9 +11,7 @@ public class ListaEstatica implements ListaInterface {
         i = capacidade-1;
     }
 
-    public ListaEstatica(){
-        this(10);
-    }
+    public ListaEstatica(){}
 
     public ListaEstatica(Object... objects){
         this(objects.length);
@@ -30,11 +28,7 @@ public class ListaEstatica implements ListaInterface {
 
     @Override
     public boolean isEmpty() throws Exception{
-        if(elementos.length<=0){
-            throw new Exception("Lista vazia!");
-        } else{
-            return false;
-        }
+        return elementos == null ||elementos.length<=0;
     }
 
     private boolean isValidIndex(int index) throws Exception{
@@ -51,8 +45,16 @@ public class ListaEstatica implements ListaInterface {
     }
 
     @Override
-    public void add(Object elemento) {
+    public void add(Object elemento) throws Exception {
+        if(!isEmpty()){
+            aumentarLength();
+            elementos[i] = elemento;
+            return;
+        }
 
+        elementos = new Object[1];
+        i = 0;
+        elementos[i] = elemento;
     }
 
     @Override
@@ -116,6 +118,7 @@ public class ListaEstatica implements ListaInterface {
         s.append("[");
         for (Object elemento : elementos){
             s.append(elemento);
+            s.append(", ");
         }
         s.append("]");
         return s.toString();
