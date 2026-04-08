@@ -29,8 +29,8 @@ public class PilhaEstatica implements PilhaInterface {
     }
 
     @Override
-    public void pop() throws Exception {
-        i--;
+    public Object pop() throws Exception {
+        return elementos[i--];
     }
 
     @Override
