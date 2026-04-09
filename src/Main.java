@@ -14,7 +14,9 @@ public class Main {
         System.out.println(pilha.pop());
         pilha.pop();
         System.out.println(pilha);
-
+        System.out.println("OLA");
+        System.out.println("Testes");
+        System.out.println("mudanças extremas!");
 
     }
 }
