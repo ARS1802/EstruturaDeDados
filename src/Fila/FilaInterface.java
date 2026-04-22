@@ -5,6 +5,6 @@ public interface FilaInterface {
     public void dequeue(Object elemento) throws Exception;
     public void clear() throws Exception;
     public boolean isEmpty() throws Exception;
-    public boolean contains(Object elemento) throws Exception;
+    public Object peek() throws Exception;
     public int size() throws Exception;
 }
