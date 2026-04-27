@@ -80,7 +80,7 @@ public class PilhaDinamica implements PilhaInterface{
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
-        sb.append("[ ");
+        sb.append("[ topo = ");
         No aux = topo;
         while(aux != null){
             sb.append(aux.getElemento()).append(", ");
