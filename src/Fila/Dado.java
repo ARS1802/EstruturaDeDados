@@ -13,7 +13,7 @@ public class Dado{
         this.prioridade = prioridade;
     }
 
-    public Object getData(){
+    public Object getElemento(){
         return elemento;
     }
 

@@ -3,14 +3,14 @@ package Fila;
 public class No {
     private No proximo;
     private No anterior;
-    private Dado elemento;
+    private Dado dado;
 
-    No(Object elemento){
-        this.elemento = new Dado(elemento);
+    No(Object dado){
+        this.dado = new Dado(dado);
     }
 
-    No(Object elemento, Prioridade prioridade){
-        this.elemento = new Dado(elemento, prioridade);
+    No(Object dado, Prioridade prioridade){
+        this.dado = new Dado(dado, prioridade);
     }
 
     public No getProximo() {
@@ -30,6 +30,10 @@ public class No {
     }
 
     public Object getElemento() {
-        return elemento.getData();
+        return dado.getElemento();
+    }
+
+    public Dado getDado(){
+        return dado;
     }
 }

@@ -33,6 +33,15 @@ public class FilaEstatica implements FilaInterface{
     }
 
     @Override
+    public void enqueue(Object valor, Prioridade prioridade) throws Exception {
+
+    }
+
+    @Override
+    public Object dequeue() throws Exception {
+        return null;
+    }
+
     public void dequeue(Object elemento) throws Exception {
         if(!isEmpty()){
             diminuirLength();
@@ -53,8 +62,18 @@ public class FilaEstatica implements FilaInterface{
     }
 
     @Override
+    public boolean contains(Object elemento) throws Exception {
+        return false;
+    }
+
+    @Override
     public Object peek() throws Exception {
         return elementos[inicio];
+    }
+
+    @Override
+    public Object peek(Prioridade prioridade) throws Exception {
+        return null;
     }
 
     @Override

@@ -28,17 +28,7 @@ public class FilaPrioridade  implements FilaInterface{
 
     @Override
     public void enqueue(Object elemento) throws Exception {
-        if(isEmpty()){
-            primeiro = new No(elemento);
-            ultimo = primeiro;
-            size++;
-        } else{
-            No aux = new No(elemento);
-            ultimo.setProximo(aux);
-            aux.setAnterior(ultimo);
-            ultimo = aux;
-            size++;
-        }
+        enqueue(elemento,Prioridade.BAIXA);
     }
 
     @Override
@@ -59,12 +49,38 @@ public class FilaPrioridade  implements FilaInterface{
     @Override
     public Object dequeue() throws Exception {
         No aux = primeiro;
-        for(int i = 0 ; i<2 ; i++){
-            Dado d = (Dado) aux.getElemento();
-            while(d.getPrioridade().getValor() != i && aux.getProximo()!=null){
+        Dado d = aux.getDado();
+
+        for(int i = 0 ; i<=2 ; i++){
+            int prioridade = d.getPrioridade().getValor();
+            while(prioridade != i && aux.getProximo()!=null){
                 aux = aux.getProximo();
+                d = aux.getDado();
+                prioridade = d.getPrioridade().getValor();
             }
+            if(prioridade == i){
+                //encontrou?
+                if(aux.getAnterior()==null){
+                    primeiro = aux.getProximo();
+                    size--;
+                    break;
+                }
+                if(aux.getProximo()==null){
+                    ultimo = aux.getAnterior();
+                    size--;
+                    break;
+                }
+                No anterior = aux.getAnterior();
+                No proximo = aux.getProximo();
+                anterior.setProximo(proximo);
+                proximo.setAnterior(anterior);
+                size--;
+                break;
+            }
+            aux = primeiro;
+            d = aux.getDado();
         }
+        return d.getElemento();
 
     }
 
@@ -76,11 +92,13 @@ public class FilaPrioridade  implements FilaInterface{
     @Override
     public Object peek(Prioridade prioridade) throws Exception {
         No aux = primeiro;
-        Dado d = (Dado) aux.getElemento();
+        Dado d = aux.getDado();
         while(d.getPrioridade() != prioridade && aux.getProximo()!=null){
-            d = (Dado) aux.getElemento();
             aux = aux.getProximo();
+            d = aux.getDado();
         }
+
+        return (d.getPrioridade() == prioridade) ? d.getElemento() : null;
     }
 
     @Override
