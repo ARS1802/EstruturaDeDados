@@ -2,14 +2,17 @@ package Fila;
 
 import java.util.*;
 
-public class FilaEstatica implements FilaInterface{
+public class FilaEstatica{
     Object[] elementos;
     int i;
     int inicio, fim;
 
-    public FilaEstatica(){};
+    public FilaEstatica(int n){
+        elementos = new Object[n];
+        inicio = fim = 0;
+    };
 
-    FilaEstatica(Object... objects){
+    public FilaEstatica(Object... objects){
         elementos = new Object[objects.length];
         for (int i = 0; i < objects.length; i++){
             elementos[i] = objects[i];
@@ -18,67 +21,45 @@ public class FilaEstatica implements FilaInterface{
         fim = elementos.length-1;
     };
 
-    @Override
     public void enqueue(Object elemento) throws Exception {
-        if(!isEmpty()){
+        if (!isEmpty()) {
             aumentarLength();
-            elementos[fim++] = elemento;
+            elementos[++fim] = elemento;
             return;
         }
 
         elementos = new Object[1];
         inicio = 0;
-        fim = elementos.length-1;
-    elementos[inicio] = elemento;
+        fim = elementos.length - 1;
+        elementos[inicio] = elemento;
     }
 
-    @Override
-    public void enqueue(Object valor, Prioridade prioridade) throws Exception {
 
-    }
-
-    @Override
     public Object dequeue() throws Exception {
-        return null;
+        if(isEmpty())
+            throw new Exception("Fila vazia!!");
+        return elementos[inicio++];
     }
 
-    public void dequeue(Object elemento) throws Exception {
-        if(!isEmpty()){
-            diminuirLength();
-            i--;
-            inicio--;
-        }
-    }
-
-    @Override
     public void clear() throws Exception {
         i = -1;
         elementos = null;
+        inicio = 0;
+        fim = -1;
     }
 
-    @Override
-    public boolean isEmpty() throws Exception {
-        return elementos == null ||elementos.length <=0;
+    public boolean isEmpty(){
+        return elementos == null || inicio > fim;
     }
 
-    @Override
-    public boolean contains(Object elemento) throws Exception {
-        return false;
-    }
-
-    @Override
     public Object peek() throws Exception {
+        if(isEmpty())
+            throw new Exception("Fila vazia!!");
         return elementos[inicio];
     }
 
-    @Override
-    public Object peek(Prioridade prioridade) throws Exception {
-        return null;
-    }
-
-    @Override
     public int size() throws Exception {
-        return elementos.length;
+        return isEmpty() ? 0:(fim - inicio)+1;
     }
 
     private boolean isValidIndex(int index) throws Exception{
@@ -104,12 +85,19 @@ public class FilaEstatica implements FilaInterface{
     }
     @Override
     public String toString(){
-        StringBuilder sb = new StringBuilder("[ ");
-        for(int i = inicio ; i<fim ; i++){
-            sb.append(elementos[i]);
-            sb.append(" ");
+        try {
+            if(isEmpty()){
+                return "";
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-        sb.append(" ]");
-        return sb.toString();
+        StringBuilder sb = new StringBuilder(" ");
+        for(int i = inicio ; i<=fim ; i++){
+            sb.append(elementos[i]);
+            sb.append(", ");
+        }
+
+        return sb.toString().substring(0,sb.length()-2);
     }
 }

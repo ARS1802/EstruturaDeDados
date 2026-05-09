@@ -48,6 +48,7 @@ public class FilaPrioridade  implements FilaInterface{
 
     @Override
     public Object dequeue() throws Exception {
+        if(isEmpty()){throw new Exception("Fila vazia!!!");}
         No aux = primeiro;
         Dado d = aux.getDado();
 
@@ -81,16 +82,17 @@ public class FilaPrioridade  implements FilaInterface{
             d = aux.getDado();
         }
         return d.getElemento();
-
     }
 
     @Override
     public Object peek() throws Exception {
+        if(isEmpty()){throw new Exception("Fila vazia!!!");}
         return primeiro.getElemento();
     }
 
     @Override
     public Object peek(Prioridade prioridade) throws Exception {
+        if(isEmpty()){throw new Exception("Fila vazia!!!");}
         No aux = primeiro;
         Dado d = aux.getDado();
         while(d.getPrioridade() != prioridade && aux.getProximo()!=null){
@@ -115,6 +117,7 @@ public class FilaPrioridade  implements FilaInterface{
 
     @Override
     public boolean contains(Object elemento) throws Exception {
+        if(isEmpty()){throw new Exception("Fila vazia!!!");}
         No aux = primeiro;
         while(aux != null){
             if(aux.getElemento().equals(elemento)){
@@ -128,11 +131,12 @@ public class FilaPrioridade  implements FilaInterface{
 
     @Override
     public int size() throws Exception {
+        if(isEmpty()){throw new Exception("Fila vazia!!!");}
         return size;
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         StringBuilder s = new StringBuilder();
         No aux = primeiro;
         while(aux != null){
