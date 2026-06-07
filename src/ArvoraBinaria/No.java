@@ -16,6 +16,14 @@ public class No<T> {
         return !(direita == null && esquerda == null);
     }
 
+    public boolean hasEsquerda(){
+        return esquerda != null;
+    }
+
+    public boolean hasDireita(){
+        return direita != null;
+    }
+
     // O construtor recebe T, entao o compilador impede valores de outro tipo.
     public No(T elemento){
         this.elemento = elemento;
@@ -44,6 +52,10 @@ public class No<T> {
         this.direita = new No<T>(elemento);
     }
 
+    public void cutDireita(){
+        this.direita = null;
+    }
+
     public No<T> getEsquerda(){
         return esquerda;
     }
@@ -54,5 +66,8 @@ public class No<T> {
 
     public void setEsquerda(T elemento){
         this.esquerda = new No<T>(elemento);
+    }
+    public void cutEsquerda(){
+        this.esquerda = null;
     }
 }
