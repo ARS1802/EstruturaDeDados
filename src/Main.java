@@ -11,7 +11,7 @@ public class Main {
             av.add(inputs[i]);
         }
 
-        av.remove(21);
+        av.remove(7);
         System.out.println();
    }
 }

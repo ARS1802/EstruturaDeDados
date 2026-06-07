@@ -96,32 +96,42 @@ public class ArvoreBusca {
                     }
 
                     //tem ambos
-                    No<Integer> childDireita = child.getDireita();
-                    No<Integer> childEsquerda = child.getEsquerda();
-
-                    ArrayList<No<Integer>> substitutoTrace = new ArrayList<>();
-                    traceMin(childDireita, substitutoTrace);
-
-                    No<Integer> substituo = substitutoTrace.getLast();
-
-
-                    child.setElemento(substituo.getElemento());
-
-                    try{
-                        No<Integer> substituoParent = substitutoTrace.get(substitutoTrace.size()-2);
-                        substituoParent.cutEsquerda();
-                    }catch (Exception e){
-                        child.cutDireita();
-                    }
+                    removeByMinimum(child);
                 }
 
+            }else{
+                System.out.println("Elemento não encontrado!");
             }
         }
         //se o elemento for a raiz da arvore!
     }
 
     public void remove(Integer elemento){
-        remove(elemento, raiz, null);
+        if(elemento == raiz.getElemento()){
+            removeByMinimum(raiz);
+        }else{
+            remove(elemento, raiz, null);
+        }
+
+    }
+
+    private void removeByMinimum(No<Integer> raiz){
+        No<Integer> childDireita = raiz.getDireita();
+        No<Integer> childEsquerda = raiz.getEsquerda();
+
+        ArrayList<No<Integer>> substitutoTrace = new ArrayList<>();
+        traceMin(childDireita, substitutoTrace);
+
+        No<Integer> substituo = substitutoTrace.getLast();
+        raiz.setElemento(substituo.getElemento());
+
+        try{
+            No<Integer> substituoParent = substitutoTrace.get(substitutoTrace.size()-2);
+            substituoParent.cutEsquerda();
+        }catch (Exception e){
+            raiz.cutDireita();
+        }
+
     }
 
     private void traceElement(Integer elemento, No<Integer> raiz, No<Integer> pai, ArrayList<No<Integer>> list){
