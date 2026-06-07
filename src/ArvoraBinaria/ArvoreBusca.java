@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class ArvoreBusca {
     No<Integer> raiz;
     int size = 0;
+    public boolean isBalanceada = false;
     //Se for maior, vai pra direita
     //Se for menor, vai pra esquerda
 
@@ -41,8 +42,10 @@ public class ArvoreBusca {
     public void add(Integer elemento){
         if(raiz == null){
             raiz = new No<Integer>(elemento);
+            size++;
         }else{
             add(elemento, raiz);
+            isBalanceada();
         }
     }
 
@@ -112,7 +115,8 @@ public class ArvoreBusca {
         }else{
             remove(elemento, raiz, null);
         }
-
+        isBalanceada();
+        size--;
     }
 
     private void removeByMinimum(No<Integer> raiz){
@@ -173,6 +177,13 @@ public class ArvoreBusca {
         return max(raiz.getDireita());
     }
 
+    private void isBalanceada(){
+        if(raiz.hasChildren()){
+            int fatorBalanceamento = altura(raiz.getEsquerda()) - altura(raiz.getDireita());
+            isBalanceada = fatorBalanceamento <= 1 && fatorBalanceamento >= -1;
+        }
+    }
+
     public boolean contains(Integer elemento){
         ArrayList<No<Integer>> list = new ArrayList<>();
         traceElement(elemento,raiz,null,list);
@@ -182,4 +193,75 @@ public class ArvoreBusca {
     public boolean isEmpty(){
         return size == 0 || raiz==null;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder builder = new StringBuilder();
+
+        if(isEmpty()){
+            return "Arvore vazia";
+        }
+
+        int altura = altura(raiz) + 1;
+        int larguraCelula = String.valueOf(size).length() + 4;
+        int tamanhoLinha = size * larguraCelula;
+
+        for(int camada = 0; camada < altura; camada++){
+            if(camada == 0){
+                builder.append("raiz: ");
+            }else{
+                builder.append(camada).append(":    ");
+            }
+
+            StringBuilder linha = new StringBuilder();
+
+            for(int i = 0; i < tamanhoLinha; i++){
+                linha.append(' ');
+            }
+
+            buildCamada(raiz, linha, camada, 0, new int[]{0}, larguraCelula);
+
+            while(linha.length() > 0 && linha.charAt(linha.length() - 1) == ' '){
+                linha.deleteCharAt(linha.length() - 1);
+            }
+
+            builder.append(linha);
+            builder.append('\n');
+        }
+
+        return builder.toString();
+    }
+
+    public static int altura(No<Integer> raiz) {
+        if (raiz == null) {
+            return -1;
+        }
+
+        int alturaEsquerda = altura(raiz.esquerda);
+        int alturaDireita = altura(raiz.direita);
+
+        return Math.max(alturaEsquerda, alturaDireita) + 1;
+    }
+
+    private void buildCamada(No<Integer> no, StringBuilder linha, int camada, int nivel, int[] coluna, int larguraCelula){
+        if(no == null){
+            return;
+        }
+
+        buildCamada(no.getEsquerda(), linha, camada, nivel + 1, coluna, larguraCelula);
+
+        if(nivel == camada){
+            String texto = no.getElemento().toString();
+            int inicio = coluna[0] * larguraCelula;
+
+            for(int i = 0; i < texto.length() && inicio + i < linha.length(); i++){
+                linha.setCharAt(inicio + i, texto.charAt(i));
+            }
+        }
+
+        coluna[0]++;
+
+        buildCamada(no.getDireita(), linha, camada, nivel + 1, coluna, larguraCelula);
+    }
+
 }

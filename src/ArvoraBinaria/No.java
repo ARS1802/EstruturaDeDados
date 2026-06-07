@@ -9,8 +9,8 @@ public class No<T> {
 
     // Como direita e esquerda sao filhos da arvore, eles tambem devem ser No<T>.
     // Isso garante que todos os nos da mesma arvore guardem o mesmo tipo de valor.
-    private No<T> direita;
-    private No<T> esquerda;
+    No<T> direita;
+    No<T> esquerda;
 
     public boolean hasChildren(){
         return !(direita == null && esquerda == null);
